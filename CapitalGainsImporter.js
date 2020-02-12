@@ -2,6 +2,7 @@ var CKI = CKI || {};
 
 CKI.enabledImporters = {
 	"Default CSV": CKI.Importers.default,
+	"Cointracker.io – Capital Gains CSV": CKI.Importers.cointrackerIo,
 	"Fidelity Consolidated 1099 CSV": CKI.Importers.fidelity,
 	"Bitcoin.tax": CKI.Importers.bitcoinTax,
 	"Cointracking.info CSV": CKI.Importers.coinTrackingInfo,
@@ -138,6 +139,9 @@ CKI.inputRowData = function(dataSource, row) {
 			var element = rowResp.element;
 			var formIndex = rowResp.formIndex;
 			var rowIndex = rowResp.rowIndex;
+
+			var bt = element.querySelector('[name="capitalGains['+formIndex+'].belongsTo"]');
+			bt.value = "tp";
 
 			var rc = element.querySelector('[name="capitalGains['+formIndex+'].reportingCategory"]');
 			rc.value = data.reportingCategory;

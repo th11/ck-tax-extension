@@ -1,16 +1,18 @@
 var CKI = CKI || {};
 CKI.Importers = CKI.Importers || {};
 
-CKI.Importers.default = {
+CKI.Importers.cointrackerIo = {
     textToLines: function(allText) {
-    	// return csv text as an array of objects
+        // return csv text as an array of objects
         console.log(allText);
         var allTextLines = allText.split(/\r\n|\n/);
+
         var headers = allTextLines[0].split(',');
         for (var j=0; j<headers.length; j++) {
-        	// string quotes from string
-        	var cleanData = headers[j].replace(/['"]+/g, '').trim()
+            // string quotes from string
+            var cleanData = headers[j].replace(/['"]+/g, '').trim()
             headers[j] = cleanData;
+            console.log(cleanData);
         }
         var lines = [];
 
@@ -22,8 +24,8 @@ CKI.Importers.default = {
 
                 var tobj = {};
                 for (var j=0; j<headers.length; j++) {
-                	// string quotes from string
-                	var cleanData = data[j].replace(/['"]+/g, '')
+                    // string quotes from string
+                    var cleanData = data[j].replace(/['"]+/g, '')
                     tobj[headers[j]] = cleanData;
                 }
                 lines.push(tobj);
@@ -36,15 +38,16 @@ CKI.Importers.default = {
     },
 
     parseCsvRow: function(sourceObj) {
-    	return {
-            reportingCategory: sourceObj["reportingCategory"],
-            description: sourceObj['description'],
-            dateAcquired: sourceObj["dateAcquired"],
-            dateSold: sourceObj["dateSold"],
-            salesPrice: sourceObj["salesPrice"],
-            costBasis: sourceObj["costBasis"],
-            adjustmentAmount: sourceObj["adjustmentAmount"],
-            adjustmentCode: sourceObj["adjustmentCode"],
+            
+        return {
+            reportingCategory: (sourceObj["Type"] == "Short Term") ? 3 : 6,
+            description: sourceObj['Asset Name'],
+            dateAcquired: sourceObj["Received Date"],
+            dateSold: sourceObj["Date Sold"],
+            salesPrice: sourceObj["Proceeds (USD)"],
+            costBasis: sourceObj["Cost Basis (USD)"],
+            adjustmentAmount: (sourceObj["adjustmentAmount"]) ? sourceObj["adjustmentAmount"] : "0.00",
+            adjustmentCode: (sourceObj["adjustmentCode"]) ? sourceObj["adjustmentCode"] : "0.00",
         }
     }
 };

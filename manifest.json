@@ -11,6 +11,7 @@
         "lib/jquery-3.3.1.min.js",
         "importers/default.js",
         "importers/bitcoinTax.js",
+        "importers/cointrackerIo.js",
         "importers/cointrackingInfo.js",
         "importers/fidelity.js",
         "CapitalGainsImporter.js"
