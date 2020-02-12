@@ -2,6 +2,11 @@
 
 Chrome Extension that adds features to the [CreditKarma Tax Capital Gains interface](https://tax.creditkarma.com/taxes/CapitalGainsFullListSummary.action) to allow CSV file imports.
 
+
+## Tip Jar
+BTC: 3PPTchAAYfDTXhTAeRNv6fCgqUc4oY5YEx
+ETH: 0x5a20056e08073e4411c18070ac514f440e8fbc1f
+
 ## Install the Extension
 
 1. Download ZIP of this repo
