@@ -4,8 +4,8 @@ Chrome Extension that adds features to the [CreditKarma Tax Capital Gains interf
 
 
 ## Tip Jar
-BTC: 3PPTchAAYfDTXhTAeRNv6fCgqUc4oY5YEx
-ETH: 0x5a20056e08073e4411c18070ac514f440e8fbc1f
+<p>BTC: 3PPTchAAYfDTXhTAeRNv6fCgqUc4oY5YEx</p>
+<p>ETH: 0x5a20056e08073e4411c18070ac514f440e8fbc1f</p>
 
 ## Install the Extension
 
