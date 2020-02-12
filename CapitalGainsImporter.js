@@ -141,7 +141,7 @@ CKI.inputRowData = function(dataSource, row) {
 			var rowIndex = rowResp.rowIndex;
 
 			var bt = element.querySelector('[name="capitalGains['+formIndex+'].belongsTo"]');
-			bt.value = "tp";
+			(data.belongsTo) ? bt.value = data.belongsTo : bt.value = "tp";
 
 			var rc = element.querySelector('[name="capitalGains['+formIndex+'].reportingCategory"]');
 			rc.value = data.reportingCategory;

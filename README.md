@@ -2,13 +2,17 @@
 
 Chrome Extension that adds features to the [CreditKarma Tax Capital Gains interface](https://tax.creditkarma.com/taxes/CapitalGainsFullListSummary.action) to allow CSV file imports.
 
-## Install
+## Install the Extension
 
-[Install the Extension](https://chrome.google.com/webstore/detail/dehmakdmiooeomgajgfjjfibkelmheob)
+1. Download ZIP of this repo
+2. Open the "Extensions" page (chrome://extensions/) in the browser and turn on the "Developer mode".
+3. Click on the "Load unpacked" button and select the directory where the build extension is placed.
 
-After installation, when you visit the Credit Karma Cap Gains form, you will see an "Import from CSV file" section.
+![Screenshot](media/install.png)
 
-https://tax.creditkarma.com/taxes/CapitalGainsFullListSummary.action
+
+After installation, go to Credit Karma Tax Home -> Investments -> Stocks, Mutual funds and bond sales, (1099-B) -> Spreadsheet entry. You will see a new section "Import from CSV file".
+
 
 ![Screenshot](media/screenshot_1.png)
 
@@ -32,13 +36,13 @@ It it the users responsibility to review all imports to make sure they are corre
 
 Does not import Adjustments
 
-## Import Sources/Formatting
 
 ### Current Support For:
 
 * [Fidelity](https://www.fidelity.com/) - Consolidated 1099 CSV
 * [CoinTracking.info](https://cointracking.info/tax/) - Tax CSV Export
 * [Bitcoin.tax](https://bitcoin.tax/home#reports) - Tax CSV Export
+* [Cointracker.io](https://www.cointracker.io/) - Capital Gains CSV
 
 ### Default CSV Formatting
 
@@ -46,6 +50,7 @@ The default importer is looking for the following headers in row 1.
 
 | Header Name     | Values          |
 | -------------   |---------------|
+| **belongsTo** | tp = Primary Tax Payer on the Account, sp = Spouse, bt = Both. In case this field does not exist in CSV it will be defaulted to Primary Tax Payer |
 | **reportingCategory** | short: 1 = 1099 was reported, 2 = 1099 not reported, 3 = no 1099 long: 4 = 1099 was reported, 5 = 1099 not reported, 6 = no 1099 |
 | **description** | description of sale |
 | **dateAcquired** | mm/dd/yyyy |
@@ -56,11 +61,13 @@ The default importer is looking for the following headers in row 1.
 | **adjustmentAmount** | 0.00 |
 
 
+
+
 Example default csv:
 ```
-holdingType,reportingCategory,description,dateAcquired,dateSold,salesPrice,costBasis
-long,1,Some Stock,12/02/2007,03/04/2017,1234.50,325.55
-short,2,Some Fund,10/15/2016,03/04/2017,5500.55,5000.00
+belongsTo, holdingType,reportingCategory,description,dateAcquired,dateSold,salesPrice,costBasis
+tp, long,1,BTC,12/02/2007,03/04/2017,1234.50,325.55
+sp, short,2,ETH,10/15/2016,03/04/2017,5500.55,5000.00
 ```
 
 
@@ -68,15 +75,22 @@ short,2,Some Fund,10/15/2016,03/04/2017,5500.55,5000.00
 
 [MIT License](LICENSE)
 
-## Contributing
+## Dev Stuff
 
-Pull Requests are encouraged.
+<details><summary>Contributing</summary>
 
-Importers are modules with the following properties:
 
-**textToLines(csvText)** - (optional) - function that takes the text of the csv file as a param, and returns an array of the rows. If this function is not provided, the default behavior is the first row of the csv is used as header properties, and returns an array of objects with named properties. [see importers/default.js](importers/default.js#L5)
+<p>Pull Requests are encouraged.</p>
 
-**parseCsvRow(csvRow)** - (required) - function that takes a row of the array returned from `textToLines` as a param, and returns an object with the following properties: [see importers/fidelity.js](importers/fidelity.js#L68)
+
+<p>Importers are modules with the following properties:</p>
+
+<p><b>textToLines(csvText)</b> - (optional) - function that takes the text of the csv file as a param, and returns an array of the rows. If this function is not provided, the default behavior is the first row of the csv is used as header properties, and returns an array of objects with named properties. [see importers/default.js](importers/default.js#L5)</p>
+
+
+<p><b>parseCsvRow(csvRow)</b> - (required) - function that takes a row of the array returned from `textToLines` as a param, and returns an object with the following properties: [see importers/fidelity.js](importers/fidelity.js#L68)</p>
+
+
 
 ```javascript
 {
@@ -121,3 +135,7 @@ CKI.Importers.exampleImporter = {
 	}
 };
 ```
+
+</details>
+
+

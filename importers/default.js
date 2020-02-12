@@ -37,6 +37,7 @@ CKI.Importers.default = {
 
     parseCsvRow: function(sourceObj) {
     	return {
+            belongsTo: sourceObj["belongsTo"],
             reportingCategory: sourceObj["reportingCategory"],
             description: sourceObj['description'],
             dateAcquired: sourceObj["dateAcquired"],
